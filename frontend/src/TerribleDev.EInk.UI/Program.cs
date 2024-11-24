@@ -31,7 +31,7 @@ class Program
             Brush brush = Brushes.Black;
             g.DrawString(currentTime, font, brush, 200, 400);
             Console.WriteLine("Initializing display...");
-            using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5Bc);
+            using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5_V2);
             Console.WriteLine("Drawing image");
             g.DrawImageUnscaled(bmp, 0, 0);
             ePaperDisplay.Clear();
