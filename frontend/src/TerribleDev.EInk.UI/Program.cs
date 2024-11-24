@@ -15,23 +15,29 @@ class Program
     }
     static async Task Main(string[] args)
     {
-        await Parser.Default.ParseArguments<Options>(args)
-            .WithParsedAsync<Options>(async o =>
-            {
-                var paperVersion = o.Version == "2"
-                    ? EPaperDisplayType.WaveShare7In5_V2
-                    : EPaperDisplayType.WaveShare7In5Bc;
-                var dir = Assembly.GetExecutingAssembly().Location;
-                var directory = Path.GetDirectoryName(dir);
-                var img = "axe.bmp";
-                var imgPath = Path.Combine(directory, img);
-                using var bitmap = new Bitmap(Image.FromFile(imgPath, true));
+        string currentTime = DateTime.Now.ToString("hh:mm:ss tt"); // Format as needed
 
-                using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5Bc);
-  
-                ePaperDisplay.Clear();
-                ePaperDisplay.WaitUntilReady();
-                ePaperDisplay.DisplayImage(bitmap);
-            });
+        // 2. Create Bitmap
+        int width = 800;
+        int height = 480;
+        Bitmap bmp = new Bitmap(width, height);
+
+        // 3. Draw Time on Bitmap
+        using (Graphics g = Graphics.FromImage(bmp))
+        {
+            g.Clear(Color.White);
+            Font font = new Font("Arial", 12, FontStyle.Regular);
+            Brush brush = Brushes.Black;
+            g.DrawString(currentTime, font, brush, 200, 400);
+            using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5_V2);
+            g.DrawImageUnscaled(bmp, 0, 0);
+            ePaperDisplay.Clear();
+            ePaperDisplay.WaitUntilReady();
+            ePaperDisplay.DisplayImage(bmp);
+        }
+
+
+
+        
     }
 }
