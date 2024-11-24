@@ -25,15 +25,19 @@ class Program
         // 3. Draw Time on Bitmap
         using (Graphics g = Graphics.FromImage(bmp))
         {
+            Console.WriteLine("Welcome to TerribleDev.EInk!");
             g.Clear(Color.White);
             Font font = new Font("Arial", 12, FontStyle.Regular);
             Brush brush = Brushes.Black;
             g.DrawString(currentTime, font, brush, 200, 400);
-            using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5_V2);
+            Console.WriteLine("Initializing display...");
+            using var ePaperDisplay = EPaperDisplay.Create(EPaperDisplayType.WaveShare7In5Bc);
+            Console.WriteLine("Drawing image");
             g.DrawImageUnscaled(bmp, 0, 0);
             ePaperDisplay.Clear();
             ePaperDisplay.WaitUntilReady();
             ePaperDisplay.DisplayImage(bmp);
+            
         }
 
 
