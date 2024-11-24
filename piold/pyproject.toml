@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pi"
+version = "0.1.0"
+description = ""
+authors = ["Tommy Parnell <tommy@terribledev.io>"]
+
+[tool.poetry.scripts]
+my-script = "pi.run:main"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pillow = "^11.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
